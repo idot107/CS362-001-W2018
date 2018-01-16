@@ -112,7 +112,7 @@ public class Appt implements  Comparable<Appt>{
     private void isValid() {
     	int NumDaysInMonth= CalendarUtil.NumDaysInMonth(startYear,startMonth-1);
     				
-    	if(startHour<0 || startHour>23)
+    	if(startHour<0 || startHour>24) //BUGGY should be 23 not 24
     		this.valid=false;
     	else
         	if(startMinute<0 || startMinute>59)
@@ -277,9 +277,9 @@ public class Appt implements  Comparable<Appt>{
      * @return a printable representation of this appointment
      */
     private String represntationApp(){
-        String half = (getStartHour() > 11) ? "pm" : "am";
+        String half = (getStartHour() > 12) ? "pm" : "am"; //BUGGY Should be 11
         int printableHour = getStartHour();
-        if (printableHour > 11)
+        if (printableHour > 12) //BUGGY should be 11
         {
             printableHour -= 12;
         }
