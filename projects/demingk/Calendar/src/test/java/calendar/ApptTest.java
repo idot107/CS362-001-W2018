@@ -80,24 +80,30 @@ public class ApptTest {
 	 	Appt a = new Appt(25,61,32, 10, 0,"LL","LL");
 	 	assertFalse(a.getValid());
 	 	assertNull(a.toString());
-	 	Appt c = new Appt(23,50,20,10,2000,"TT","TT");
+	 	Appt c = new Appt(23,50,20,10,2000,"TT", "TT");
+	 	assertTrue(c.getValid());
 	 	c.setStartHour(24);
 	 	assertFalse(c.getValid());
 	 	c.setStartHour(23);
 	 	c.setStartMinute(-1);
 	 	assertFalse(c.getValid());
+	 	c.setStartMinute(40);
+	 	c.setStartHour(-1);
+	 	assertFalse(c.getValid());
+	 	c.setStartHour(5);
 	 	c.setStartMinute(61);
 	 	assertFalse(c.getValid());
 	 	c.setStartMinute(50);
 	 	c.setStartDay(32);
 	 	assertFalse(c.getValid());
 	 	c.setStartDay(-1);
-		 assertFalse(c.getValid());
-	 	c.setStartDay(20);
-	 	c.setStartMonth(-1);
 	 	assertFalse(c.getValid());
-	 	c.setStartMonth(40);
-		 assertFalse(c.getValid());
+	 	c.setStartDay(20);
+	 	c.setStartMonth(5);
+	 	assertTrue(c.getValid());
+	 	//c.setStartMonth(12);
+	 	//assertFalse(c.getValid());
+	 	c.setStartMonth(8);
 	 }
 
 }

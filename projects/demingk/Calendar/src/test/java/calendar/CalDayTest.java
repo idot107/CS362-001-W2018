@@ -40,7 +40,7 @@ import java.util.GregorianCalendar;
                 c.setStartMonth(12);
                 /*Checks to see if 12 is incorrect since it is cause it should be 0 - 11*/
                 assertFalse(c.getValid());
-                c.setStartMonth(13);
+                c.setStartMonth(11);
                 a.addAppt(c);
             }
             @Test
@@ -54,9 +54,6 @@ import java.util.GregorianCalendar;
                 a.addAppt(c);
                 assertNotEquals(a.toString(),"");
                 assertEquals(a.getAppts().getFirst().getStartHour(), 1);
-
-
             }
-
 
 }

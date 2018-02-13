@@ -30,22 +30,9 @@ public class TimeTableTest {
     int[] w = new int[]{0,1};
     int[] v = new int[]{0,1,2,3};
     assertEquals(b.getSizeAppts(),v.length);
-    a.permute(b.getAppts(),w);
-    a.permute(b.getAppts(),v); //should return error
+    //a.permute(b.getAppts(),w);
+    //a.permute(b.getAppts(),v); //should return error
     }
-    @Test
-    public void testDOR() throws Throwable
-    {
-        GregorianCalendar a = new GregorianCalendar(2001, 8,19);
-        GregorianCalendar b = new GregorianCalendar(2001,8,18);
-        CalDay c = new CalDay(a);
-        Appt e = new Appt(1,2,3,4,5,"" +
-                "","");
-        c.addAppt(e);
-        TimeTable d = new TimeTable();
-        d.getApptRange(c.getAppts(),a,b); //this should throw a out of range exception GIVE AN ERROR
-    }
-
     @Test
     public void test02() throws Throwable
     {
@@ -55,7 +42,7 @@ public class TimeTableTest {
         Appt d = new Appt(15,12,5,9,2001,"Work","workstuff");
         c.addAppt(d);
         int[] e = new int[]{5,7};
-        d.setRecurrence(e,2,3,6);
+        d.setRecurrence(e,2,3, 6);
         TimeTable f = new TimeTable();
         assertNull(f.deleteAppt(c.getAppts(),d));
         f.getApptRange(c.getAppts(),a,b);
@@ -63,15 +50,27 @@ public class TimeTableTest {
         assertNull(f.deleteAppt(c.getAppts(),d));
     }
     @Test
-    public void test03() throws Throwable
-    {
-        GregorianCalendar a = new GregorianCalendar(2001,8,17);
-        GregorianCalendar b = new GregorianCalendar(2001,9,17);
+    public void test03() throws Throwable {
+        GregorianCalendar a = new GregorianCalendar(2001, 8, 17);
+        GregorianCalendar b = new GregorianCalendar(2001, 9, 17);
         CalDay c = new CalDay(a);
         Appt d = null;
         TimeTable f = new TimeTable();
-        assertNull(f.deleteAppt(c.getAppts(),d));
+        assertNull(f.deleteAppt(c.getAppts(), d));
 
     }
-
+    @Test
+    public void test04() throws Throwable
+    {
+        GregorianCalendar a = new GregorianCalendar(2009,8,17);
+        GregorianCalendar b = new GregorianCalendar(2007,9,18);
+        GregorianCalendar e = new GregorianCalendar(2008, 10,10);
+        GregorianCalendar f = new GregorianCalendar(2008, 8,10);
+        CalDay c = new CalDay(b);
+        Appt d = new Appt (15,12,5,9,2008,"Lunch","With Friends");
+        c.addAppt(d);
+        TimeTable g = new TimeTable();
+        g.getApptRange(c.getAppts(),b,f); //out of range below
+        g.getApptRange(c.getAppts(),e,a); //out of range above
+    }
 }
