@@ -1,11 +1,13 @@
 package calendar;
 
+import java.util.Random;
 import java.util.GregorianCalendar;
 
 /**
  *  This class provides a basic set of test cases for the
  *  CalDay class.
  */
+import java.util.Random;
 import org.junit.Test;
 import static org.junit.Assert.*;
 public class TimeTableTest {
@@ -13,15 +15,86 @@ public class TimeTableTest {
     @Test
     public void test01() throws Throwable
     {
+        Random rand = new Random();
     GregorianCalendar c = new GregorianCalendar(1996,7,23);
     GregorianCalendar d = new GregorianCalendar(1996,7,26);
     CalDay b = new CalDay(c);
     Appt s = new Appt(5,5,24,7,1996,"G","F");
     b.addAppt(s);
-    s.setStartDay(25);
+        for(int i = 0; i < 50; i++)
+        {
+            s.setStartHour(rand.nextInt(50)+1);
+            b.addAppt(s);
+            s.setStartHour(rand.nextInt(50)* (-1));
+            b.addAppt(s);
+        }
+        for(int i = 0; i < 100; i++)
+        {
+            s.setStartMinute(rand.nextInt(70)+1);
+            b.addAppt(s);
+            s.setStartMinute(rand.nextInt(60)*(-1));
+            b.addAppt(s);
+        }
+        for(int i = 0; i < 50; i++)
+        {
+            s.setStartDay(rand.nextInt(50)+1);
+            b.addAppt(s);
+            s.setStartDay(rand.nextInt(50)*(-1));
+            b.addAppt(s);
+        }
+        for(int i = 0; i < 20; i++)
+        {
+            s.setStartMonth(rand.nextInt(20)+1);
+            b.addAppt(s);
+            s.setStartMonth(rand.nextInt(20)*(-1));
+            b.addAppt(s);
+        }
+        for(int i = 0; i < 200; i++)
+        {
+            s.setStartYear(rand.nextInt(3000)+1);
+            b.addAppt(s);
+            s.setStartYear(rand.nextInt(3000)*(-1));
+            b.addAppt(s);
+        }
     b.addAppt(s);
     TimeTable a = new TimeTable();
     a.getApptRange(b.getAppts(), c ,d);
+    Appt p = new Appt(15,12,5,9,2001,"Work","workstuff");
+        for(int i = 0; i < 50; i++)
+        {
+            p.setStartHour(rand.nextInt(50)+1);
+            a.deleteAppt(b.getAppts(),p);
+            p.setStartHour(rand.nextInt(50)* (-1));
+            a.deleteAppt(b.getAppts(),p);
+        }
+        for(int i = 0; i < 100; i++)
+        {
+            p.setStartMinute(rand.nextInt(70)+1);
+            a.deleteAppt(b.getAppts(),p);
+            p.setStartMinute(rand.nextInt(60)*(-1));
+            a.deleteAppt(b.getAppts(),p);
+        }
+        for(int i = 0; i < 50; i++)
+        {
+            p.setStartDay(rand.nextInt(50)+1);
+            a.deleteAppt(b.getAppts(),p);
+            p.setStartDay(rand.nextInt(50)*(-1));
+            a.deleteAppt(b.getAppts(),p);
+        }
+        for(int i = 0; i < 20; i++)
+        {
+            p.setStartMonth(rand.nextInt(20)+1);
+            a.deleteAppt(b.getAppts(),p);
+            p.setStartMonth(rand.nextInt(20)*(-1));
+            a.deleteAppt(b.getAppts(),p);
+        }
+        for(int i = 0; i < 200; i++)
+        {
+            p.setStartYear(rand.nextInt(3000)+1);
+            a.deleteAppt(b.getAppts(),p);
+            p.setStartYear(rand.nextInt(3000)*(-1));
+            a.deleteAppt(b.getAppts(),p);
+        }
     s.setStartHour(7);
     b.addAppt(s);
     s.setStartHour(9);

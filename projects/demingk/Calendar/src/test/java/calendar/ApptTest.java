@@ -4,7 +4,7 @@ package calendar;
  *  Appt class.
  */
 import org.junit.Test;
-
+import java.util.Random;
 import static org.junit.Assert.*;
 public class ApptTest {
     /**
@@ -27,9 +27,11 @@ public class ApptTest {
 	 @Test
 	  public void test02()  throws Throwable {
       Appt a = new Appt(1,1,1,1,1,"T","A");
+      Random rand = new Random();
       assertTrue(a.getValid());
       int[] b = new int[]{1,2,3};
       int[] c = new int[]{0};
+
       a.setRecurrence(b,1,1,1);
       assertEquals(a.getRecurDays(), b);
       assertEquals(a.getRecurBy(),1);
@@ -37,6 +39,10 @@ public class ApptTest {
       assertEquals(a.getRecurNumber(),1);
       assertTrue(a.isRecurring());
       a.setRecurrence(null,1,1,1);
+      for(int i = 0; i < 200; i++)
+      {
+      	a.setRecurrence(b,rand.nextInt(50), rand.nextInt(50), rand.nextInt(50));
+	  }
       //assertEquals(a.getRecurDays(), 0);
 
 
@@ -77,27 +83,45 @@ public class ApptTest {
 	 @Test
 	 public void test05() throws Throwable
 	 {
+	 	Random rand = new Random();
 	 	Appt a = new Appt(25,61,32, 10, 0,"LL","LL");
 	 	assertFalse(a.getValid());
 	 	assertNull(a.toString());
 	 	Appt c = new Appt(23,50,20,10,2000,"TT","TT");
-	 	c.setStartHour(24);
-	 	assertFalse(c.getValid());
-	 	c.setStartHour(23);
-	 	c.setStartMinute(-1);
-	 	assertFalse(c.getValid());
-	 	c.setStartMinute(61);
-	 	assertFalse(c.getValid());
-	 	c.setStartMinute(50);
-	 	c.setStartDay(32);
-	 	assertFalse(c.getValid());
-	 	c.setStartDay(-1);
-		 assertFalse(c.getValid());
-	 	c.setStartDay(20);
-	 	c.setStartMonth(-1);
-	 	assertFalse(c.getValid());
-	 	c.setStartMonth(40);
-		 assertFalse(c.getValid());
+	 	for(int i = 0; i < 50; i++)
+		{
+			c.setStartHour(rand.nextInt(50)+1);
+			c.getValid();
+			c.setStartHour(rand.nextInt(50)* (-1));
+			c.getValid();
+		}
+		for(int i = 0; i < 100; i++)
+		{
+			c.setStartMinute(rand.nextInt(70)+1);
+			c.getValid();
+			c.setStartMinute(rand.nextInt(60)*(-1));
+			c.getValid();
+		}
+		for(int i = 0; i < 100; i++)
+		{
+			c.setStartDay(rand.nextInt(100)+1);
+			c.getValid();
+			c.setStartDay(rand.nextInt(100)*(-1));
+			c.getValid();
+		}
+		for(int i = 0; i < 20; i++)
+		{
+			c.setStartMonth(rand.nextInt(20)+1);
+			c.getValid();
+			c.setStartMonth(rand.nextInt(20)*(-1));
+			c.getValid();
+		}
+		for(int i = 0; i < 200; i++)
+		{
+			c.setStartYear(rand.nextInt(3000)+1);
+			c.getValid();
+			c.setStartYear(rand.nextInt(3000)*(-1));
+			c.getValid();
+		}
+		}
 	 }
-
-}
