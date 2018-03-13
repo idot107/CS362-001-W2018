@@ -1,0 +1,13 @@
+Bug reports
+Yes bugs were found in the code. 
+These bugs are:
+1) Incorrect bounds. 
+Test05 in ApptTest reports if the “if statements” for keeping day, month, year, hour, and minute use the correct statements and return the correct value. Since it failed here the bug was found to be a bound bug. 
+Location Appt.java line 115 and 116 in function void isValid(). 
+Code in error:  if(startHour<0 && startHour>23){this.valid=false;} should be || not &&
+2) This one was a bit trickier to find since it triggered multiple tests. 
+It said that the code failed three tests. 
+So I had to look at why all of them failed. 
+Since all failed I checked if valid was correct through the code and I found the bug. 
+Location CalDay.java line 42. 
+Code in error: public CalDay() {valid = true;} should be valid = false;
