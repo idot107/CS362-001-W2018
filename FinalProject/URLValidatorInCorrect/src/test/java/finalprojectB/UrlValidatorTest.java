@@ -22,15 +22,33 @@ public class UrlValidatorTest extends TestCase {
    UrlValidator checkValid = new UrlValidator();
    
    
-   public void testManualTest()
-   {
-//You can use this function to implement your manual testing
+   public void testManualTest() {
+       StringBuilder testBuffer = new StringBuilder();
 
-	   
    }
-   
-   
-   public void testYourFirstPartition()
+    public void testMV01() {
+        assertTrue(checkValid.isValid("google.com"));
+    }
+    public void testMV02() {
+        assertTrue(checkValid.isValid("http://google.com"));
+    }
+    public void testMV03() {
+        assertFalse(checkValid.isValid("http:google.com"));
+    }
+    public void testRP01() {
+       ResultPair t0 = new ResultPair("hello",true);
+        assertEquals("hello", t0.item);
+    }
+    public void testRP02() {
+        ResultPair t0 = new ResultPair("hello",true);
+        assertEquals(true, t0.valid);
+    }
+    public void testRP04() {
+        ResultPair t0 = new ResultPair("hello",false);
+        assertEquals(false, t0.item);
+    }
+
+    public void testYourFirstPartition()
    {
 	 //You can use this function to implement your First Partition testing	   
 
