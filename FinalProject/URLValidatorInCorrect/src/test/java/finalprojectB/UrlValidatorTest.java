@@ -18,11 +18,14 @@ public class UrlValidatorTest extends TestCase {
       super(testName);
    }
 
+
+   UrlValidator checkValid = new UrlValidator();
    
    
    public void testManualTest()
    {
-//You can use this function to implement your manual testing	   
+//You can use this function to implement your manual testing
+
 	   
    }
    
