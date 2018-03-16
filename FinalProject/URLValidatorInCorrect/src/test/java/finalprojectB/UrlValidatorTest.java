@@ -29,24 +29,33 @@ public class UrlValidatorTest extends TestCase {
     public void testMV01() {
         assertTrue(checkValid.isValid("google.com"));
     }
+    public void testMVU() {
+        assertTrue(checkValid.isValid("GOOGLE.COM"));
+    }
     public void testMV02() {
         assertTrue(checkValid.isValid("http://google.com"));
     }
     public void testMV03() {
         assertFalse(checkValid.isValid("http:google.com"));
     }
+    public void testMVU2() {
+        assertFalse(checkValid.isValid("HTTP:GOOGLE.COM"));
+    }
+
     public void testRP01() {
-       ResultPair t0 = new ResultPair("hello",true);
+        ResultPair t0 = new ResultPair("hello",true);
         assertEquals("hello", t0.item);
     }
     public void testRP02() {
         ResultPair t0 = new ResultPair("hello",true);
         assertEquals(true, t0.valid);
     }
-    public void testRP04() {
+    public void testRP03() {
         ResultPair t0 = new ResultPair("hello",false);
-        assertEquals(false, t0.item);
+        assertEquals(false, t0.valid);
     }
+
+
 
     public void testYourFirstPartition()
    {
