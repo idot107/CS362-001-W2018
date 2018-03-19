@@ -86,10 +86,12 @@ public class UrlValidatorTest extends TestCase {
    }
    //You need to create more test cases for your Partitions if you need to
     public void testURLSchemePartition(){
+       StringBuilder sb = new StringBuilder();
         boolean passed = true;
         for (ResultPair p : testUrlScheme ){
-            //assertEquals(p.valid, checkValid.isValid(p.item));
-            if(p.valid != checkValid.isValid(p.item)){
+            sb.append(p.item);
+            sb.append(".com");
+            if(p.valid != checkValid.isValid(sb.toString())){
                 System.out.println("ERROR Scheme: " + p.item);
                 passed = false;
             }
@@ -97,10 +99,12 @@ public class UrlValidatorTest extends TestCase {
          assertTrue(passed);
     }
     public void testAuthorityPartition(){
+        StringBuilder sb = new StringBuilder();
         boolean passed = true;
         for (ResultPair p : testUrlAuthority ){
-            //assertEquals(p.valid, checkValid.isValid(p.item));
-            if(p.valid != checkValid.isValid(p.item)){
+            sb.append("http://");
+            sb.append(p.item);
+            if(p.valid != checkValid.isValid(sb.toString())){
                 System.out.println("ERROR Authority: " + p.item);
                 passed = false;
             }
@@ -108,10 +112,12 @@ public class UrlValidatorTest extends TestCase {
         assertTrue(passed);
     }
     public void testPortPartition(){
+        StringBuilder sb = new StringBuilder();
         boolean passed = true;
         for (ResultPair p : testUrlPort ){
-            //assertEquals(p.valid, checkValid.isValid(p.item));
-            if(p.valid != checkValid.isValid(p.item)){
+            sb.append("http://");
+            sb.append(p.item);
+            if(p.valid != checkValid.isValid(sb.toString())){
                 System.out.println("ERROR Port: " + p.item);
                 passed = false;
             }
@@ -119,10 +125,12 @@ public class UrlValidatorTest extends TestCase {
         assertTrue(passed);
     }
     public void testPathPartition(){
+        StringBuilder sb = new StringBuilder();
         boolean passed = true;
         for (ResultPair p : testPath ){
-            //assertEquals(p.valid, checkValid.isValid(p.item));
-            if(p.valid != checkValid.isValid(p.item)){
+            sb.append("http://www.google.com");
+            sb.append(p.item);
+            if(p.valid != checkValid.isValid(sb.toString())){
                 System.out.println("ERROR Pathy: " + p.item);
                 passed = false;
             }
@@ -130,10 +138,12 @@ public class UrlValidatorTest extends TestCase {
         assertTrue(passed);
     }
     public void testPathOptionsPartition(){
+        StringBuilder sb = new StringBuilder();
         boolean passed = true;
         for (ResultPair p : testUrlPathOptions ){
-            //assertEquals(p.valid, checkValid.isValid(p.item));
-            if(p.valid != checkValid.isValid(p.item)){
+            sb.append("http://www.google.com");
+            sb.append(p.item);
+            if(p.valid != checkValid.isValid(sb.toString())){
                 System.out.println("ERROR PathOption: " + p.item);
                 passed = false;
             }
@@ -141,9 +151,11 @@ public class UrlValidatorTest extends TestCase {
         assertTrue(passed);
     }
     public void testQueryPartition(){
+        StringBuilder sb = new StringBuilder();
         boolean passed = true;
         for (ResultPair p : testUrlQuery ){
-            //assertEquals(p.valid, checkValid.isValid(p.item));
+            sb.append("http://www.google.com");
+            sb.append(p.item);
             if(p.valid != checkValid.isValid(p.item)){
                 System.out.println("ERROR Query: " + p.item);
                 passed = false;
