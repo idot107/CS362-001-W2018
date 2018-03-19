@@ -13,24 +13,32 @@ import junit.framework.TestCase;
 
 public class UrlValidatorTest extends TestCase {
 
+    public void main(){
 
+    }
    public UrlValidatorTest(String testName) {
       super(testName);
    }
 
 
-   UrlValidator checkValid = new UrlValidator();
+   UrlValidator checkValid = new UrlValidator(UrlValidator.ALLOW_ALL_SCHEMES);
    
    
    public void testManualTest() {
        StringBuilder testBuffer = new StringBuilder();
 
    }
+    public void testMV00() {
+        assertFalse(checkValid.isValid(null));
+    }
     public void testMV01() {
-        assertTrue(checkValid.isValid("google.com"));
+        assertTrue(checkValid.isValid("http://www.google.com"));
+    }
+    public void testMV11() {
+        assertTrue(checkValid.isValid("http://www.google.com/"));
     }
     public void testMVU() {
-        assertTrue(checkValid.isValid("GOOGLE.COM"));
+        assertTrue(checkValid.isValid("http://.com"));
     }
     public void testMV02() {
         assertTrue(checkValid.isValid("http://google.com"));
@@ -40,6 +48,15 @@ public class UrlValidatorTest extends TestCase {
     }
     public void testMVU2() {
         assertFalse(checkValid.isValid("HTTP:GOOGLE.COM"));
+    }
+    public void testMV04() {
+        assertTrue(checkValid.isValid("http://www.google.com~"));
+    }
+    public void testMV05() {
+        assertTrue(checkValid.isValid("ftp://0.0.0.0:0?action=edit&mode=up"));
+    }
+    public void testMV06() {
+        assertTrue(checkValid.isValid("ftp://www.google.com"));
     }
 
     public void testRP01() {
@@ -67,8 +84,75 @@ public class UrlValidatorTest extends TestCase {
 		 //You can use this function to implement your Second Partition testing	   
 
    }
-   //You need to create more test cases for your Partitions if you need to 
-   
+   //You need to create more test cases for your Partitions if you need to
+    public void testURLSchemePartition(){
+        boolean passed = true;
+        for (ResultPair p : testUrlScheme ){
+            //assertEquals(p.valid, checkValid.isValid(p.item));
+            if(p.valid != checkValid.isValid(p.item)){
+                System.out.println("ERROR Scheme: " + p.item);
+                passed = false;
+            }
+        }
+         assertTrue(passed);
+    }
+    public void testAuthorityPartition(){
+        boolean passed = true;
+        for (ResultPair p : testUrlAuthority ){
+            //assertEquals(p.valid, checkValid.isValid(p.item));
+            if(p.valid != checkValid.isValid(p.item)){
+                System.out.println("ERROR Authority: " + p.item);
+                passed = false;
+            }
+        }
+        assertTrue(passed);
+    }
+    public void testPortPartition(){
+        boolean passed = true;
+        for (ResultPair p : testUrlPort ){
+            //assertEquals(p.valid, checkValid.isValid(p.item));
+            if(p.valid != checkValid.isValid(p.item)){
+                System.out.println("ERROR Port: " + p.item);
+                passed = false;
+            }
+        }
+        assertTrue(passed);
+    }
+    public void testPathPartition(){
+        boolean passed = true;
+        for (ResultPair p : testPath ){
+            //assertEquals(p.valid, checkValid.isValid(p.item));
+            if(p.valid != checkValid.isValid(p.item)){
+                System.out.println("ERROR Pathy: " + p.item);
+                passed = false;
+            }
+        }
+        assertTrue(passed);
+    }
+    public void testPathOptionsPartition(){
+        boolean passed = true;
+        for (ResultPair p : testUrlPathOptions ){
+            //assertEquals(p.valid, checkValid.isValid(p.item));
+            if(p.valid != checkValid.isValid(p.item)){
+                System.out.println("ERROR PathOption: " + p.item);
+                passed = false;
+            }
+        }
+        assertTrue(passed);
+    }
+    public void testQueryPartition(){
+        boolean passed = true;
+        for (ResultPair p : testUrlQuery ){
+            //assertEquals(p.valid, checkValid.isValid(p.item));
+            if(p.valid != checkValid.isValid(p.item)){
+                System.out.println("ERROR Query: " + p.item);
+                passed = false;
+            }
+        }
+        assertTrue(passed);
+    }
+
+
    public void testIsValid()
    {
 	   //You can use this function for programming based testing
