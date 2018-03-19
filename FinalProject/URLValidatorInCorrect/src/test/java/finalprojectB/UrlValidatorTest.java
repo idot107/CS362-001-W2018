@@ -8,56 +8,30 @@ import junit.framework.TestCase;
 // Again, it is up to you to use this file or not!
 
 
-
-
-
 public class UrlValidatorTest extends TestCase {
 
-    public void main(){
-
+    public UrlValidatorTest(String testName) {
+        super(testName);
     }
-   public UrlValidatorTest(String testName) {
-      super(testName);
-   }
 
 
-   UrlValidator checkValid = new UrlValidator(UrlValidator.ALLOW_ALL_SCHEMES);
-   
-   
-   public void testManualTest() {
-       StringBuilder testBuffer = new StringBuilder();
+    UrlValidator checkValid = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
 
-   }
-    public void testMV00() {
-        assertFalse(checkValid.isValid(null));
+
+    public void testManualTest() {
+        StringBuilder testBuffer = new StringBuilder();
+
     }
-    public void testMV01() {
-        assertTrue(checkValid.isValid("http://www.google.com"));
-    }
-    public void testMV11() {
-        assertTrue(checkValid.isValid("http://www.google.com/"));
-    }
-    public void testMVU() {
-        assertTrue(checkValid.isValid("http://.com"));
-    }
-    public void testMV02() {
-        assertTrue(checkValid.isValid("http://google.com"));
-    }
-    public void testMV03() {
-        assertFalse(checkValid.isValid("http:google.com"));
-    }
-    public void testMVU2() {
-        assertFalse(checkValid.isValid("HTTP:GOOGLE.COM"));
-    }
-    public void testMV04() {
-        assertTrue(checkValid.isValid("http://www.google.com~"));
-    }
-    public void testMV05() {
-        assertTrue(checkValid.isValid("ftp://0.0.0.0:0?action=edit&mode=up"));
-    }
-    public void testMV06() {
-        assertTrue(checkValid.isValid("ftp://www.google.com"));
-    }
+    public void testMV00() { assertFalse(checkValid.isValid(null)); }
+    public void testMV01() { assertTrue(checkValid.isValid("http://www.google.com")); }
+    public void testMV11() { assertTrue(checkValid.isValid("http://www.google.com/")); }
+    public void testMVU() { assertFalse(checkValid.isValid("http://.com")); }
+    public void testMV02() { assertTrue(checkValid.isValid("http://google.com")); }
+    public void testMV03() { assertFalse(checkValid.isValid("http:google.com")); }
+    public void testMVU2() { assertFalse(checkValid.isValid("HTTP:GOOGLE.COM")); }
+    public void testMV04() { assertFalse(checkValid.isValid("http://www.google.com~")); }
+    public void testMV05() { assertTrue(checkValid.isValid("ftp://0.0.0.0:0?action=edit&mode=up")); }
+    public void testMV06() { assertTrue(checkValid.isValid("ftp://www.google.com")); }
 
     public void testRP01() {
         ResultPair t0 = new ResultPair("hello",true);
@@ -73,35 +47,27 @@ public class UrlValidatorTest extends TestCase {
     }
 
 
-
-    public void testYourFirstPartition()
-   {
-	 //You can use this function to implement your First Partition testing	   
-
-   }
-   
-   public void testYourSecondPartition(){
-		 //You can use this function to implement your Second Partition testing	   
-
-   }
-   //You need to create more test cases for your Partitions if you need to
+    //You need to create more test cases for your Partitions if you need to
     public void testURLSchemePartition(){
-       StringBuilder sb = new StringBuilder();
         boolean passed = true;
         for (ResultPair p : testUrlScheme ){
+            if(p.item == ""){
+                continue;
+            }
+            StringBuilder sb = new StringBuilder();
             sb.append(p.item);
-            sb.append(".com");
+            sb.append("www.google.com");
             if(p.valid != checkValid.isValid(sb.toString())){
                 System.out.println("ERROR Scheme: " + p.item);
                 passed = false;
             }
         }
-         assertTrue(passed);
+        assertTrue(passed);
     }
     public void testAuthorityPartition(){
-        StringBuilder sb = new StringBuilder();
         boolean passed = true;
         for (ResultPair p : testUrlAuthority ){
+            StringBuilder sb = new StringBuilder();
             sb.append("http://");
             sb.append(p.item);
             if(p.valid != checkValid.isValid(sb.toString())){
@@ -112,10 +78,10 @@ public class UrlValidatorTest extends TestCase {
         assertTrue(passed);
     }
     public void testPortPartition(){
-        StringBuilder sb = new StringBuilder();
         boolean passed = true;
         for (ResultPair p : testUrlPort ){
-            sb.append("http://");
+            StringBuilder sb = new StringBuilder();
+            sb.append("ftp://0.0.0.0");
             sb.append(p.item);
             if(p.valid != checkValid.isValid(sb.toString())){
                 System.out.println("ERROR Port: " + p.item);
@@ -125,9 +91,9 @@ public class UrlValidatorTest extends TestCase {
         assertTrue(passed);
     }
     public void testPathPartition(){
-        StringBuilder sb = new StringBuilder();
         boolean passed = true;
         for (ResultPair p : testPath ){
+            StringBuilder sb = new StringBuilder();
             sb.append("http://www.google.com");
             sb.append(p.item);
             if(p.valid != checkValid.isValid(sb.toString())){
@@ -137,10 +103,11 @@ public class UrlValidatorTest extends TestCase {
         }
         assertTrue(passed);
     }
+    /*/
     public void testPathOptionsPartition(){
-        StringBuilder sb = new StringBuilder();
         boolean passed = true;
         for (ResultPair p : testUrlPathOptions ){
+            StringBuilder sb = new StringBuilder();
             sb.append("http://www.google.com");
             sb.append(p.item);
             if(p.valid != checkValid.isValid(sb.toString())){
@@ -150,11 +117,13 @@ public class UrlValidatorTest extends TestCase {
         }
         assertTrue(passed);
     }
+    /**/
+    /*/
     public void testQueryPartition(){
-        StringBuilder sb = new StringBuilder();
         boolean passed = true;
         for (ResultPair p : testUrlQuery ){
-            sb.append("http://www.google.com");
+            StringBuilder sb = new StringBuilder();
+            sb.append("ftp://0.0.0.0:0");
             sb.append(p.item);
             if(p.valid != checkValid.isValid(p.item)){
                 System.out.println("ERROR Query: " + p.item);
@@ -163,13 +132,42 @@ public class UrlValidatorTest extends TestCase {
         }
         assertTrue(passed);
     }
+    /**/
 
+    public void testIsValid()
+    {
+        //You can use this function for programming based testing
+        boolean doPass = true;
+        for (ResultPair S : testUrlScheme){
+            StringBuilder sb = new StringBuilder();
+            boolean expected = S.valid;
+            sb.append(S.item);
 
-   public void testIsValid()
-   {
-	   //You can use this function for programming based testing
-
-   }
+            for (ResultPair A : testUrlAuthority){
+                sb.append(A.item);
+                if ( A.valid == false) {
+                    expected = false;
+                }
+                for (ResultPair Port : testUrlPort){
+                    sb.append(Port.item);
+                    if ( Port.valid == false) {
+                        expected = false;
+                    }
+                    for (ResultPair Path : testPath) {
+                        sb.append(Path.item);
+                        if ( Path.valid == false) {
+                            expected = false;
+                        }
+                        if(!(expected == checkValid.isValid(sb.toString()))){
+                            System.out.println("ERROR DETECTED IN: " + sb.toString());
+                            doPass = false;
+                        }
+                    }
+                }
+            }
+        }
+        assertTrue(doPass);
+    }
 
     ResultPair[] testUrlScheme = {new ResultPair("http://", true),
             new ResultPair("ftp://", true),
